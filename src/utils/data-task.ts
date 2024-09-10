@@ -1,10 +1,13 @@
+export type Status = 'todo' | 'inProgress' | 'done'
+
 export type Task = {
     title: string
     id: string
     description?: string
-    status: 'todo' | 'inProgress' | 'done'
+    status: Status
     points?: number
   }
+ export const statuses: Status[]=['todo', 'inProgress', 'done']
 
   export const tasks: Task[] = [
     {

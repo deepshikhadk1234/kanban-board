@@ -25,56 +25,56 @@ export const priorities: Priority[]= ['low','medium','high']
       description: 'Hello how are you ????',
       status: 'inProgress',
       priority: 'medium',
-      points: 334
+      points: 24
     },
     {
       title: 'Kanban Board',
       id: '3',
       status: 'done',
       priority: 'high',
-      points: 33
+      points: 4
     },
     {
       title: 'Kanban Board',
       id: '4',
       status: 'todo',
       priority: 'medium',
-      points: 90
+      points: 5
     },
     {
       title: 'Kanban Board',
       id: '5',
       status: 'inProgress',
       priority: 'low',
-      points: 334
+      points: 4
     },
     {
       title: 'Kanban Board',
       id: '6',
       status: 'done',
       priority: 'medium',
-      points: 33
+      points: 13
     },
     {
       title: 'Kanban Board',
       id: '7',
       status: 'todo',
       priority: 'high',
-      points: 90
+      points: 6
     },
     {
       title: 'Kanban Board',
       id: '8',
       status: 'inProgress',
       priority: 'medium',
-      points: 334
+      points: 7
     },
     {
       title: 'Kanban Board',
       id: '9',
       status: 'done',
       priority: 'low',
-      points: 33
+      points: 4
     }
 
   ]

@@ -18,51 +18,57 @@ function App() {
   // const updateTaskPoints = (task: Task, points: number) => {
   //   updateTask({...task, points})
   // }
-  
+
   // const updateTaskTitle = (task: Task, title: string) => { 
   //   updateTask({...task, title})
   // }
 
   const updateTask = (task: Task) => { // Change String to string
-  
+
     const updatedTasks = tasks.map((t) => {
       return t.id === task.id ? task : t
     })
     setTasks(updatedTasks)
   }
 
-  const handleDrop = (e: React.DragEvent<HTMLDivElement>, status: Status)=>{
+  const handleDrop = (e: React.DragEvent<HTMLDivElement>, status: Status) => {
     e.preventDefault()
     const id = e.dataTransfer.getData("id")
     const task = tasks.find((task) => task.id === id)
-    if(task) {
-      updateTask({...task, status})
+    if (task) {
+      updateTask({ ...task, status })
+    }
   }
-}
 
-// const [currentlyHoveringOver, setCurrentlyHoveringOver] = useState<Status | null>(null)
-// const handleDragEnter = (status: Status) => {
-//   setCurrentlyHoveringOver(status)
-// }
+  const [currentlyHoveringOver, setCurrentlyHoveringOver] = useState<Status | null>(null)
+  const handleDragEnter = (status: Status) => {
+    console.log('drag enter', status)
+    setCurrentlyHoveringOver(status)
+  }
 
 
   return (
     <div className='flex divide-x'>
       {columns.map((column) => (
-        <div onDrop={(e) => handleDrop(e, column.title)} onDragOver={(e) => e.preventDefault()}>
-        {/* // onDragOver={(e) => e.preventDefault()}
-        // onDragEnter={() => handleDragEnter(column.status)} */}
+        <div
+          onDrop={(e) => handleDrop(e, column.title)}
+          onDragOver={(e) => e.preventDefault()}
+          onDragEnter={() => handleDragEnter(column.title)}
+        >
           <div className="flex justify-between text-3xl p-2 font-bold  text-cyan-800 ">
-          <h2 className=" capitalize ">{column.title}</h2>
-          {column.tasks.reduce((total, task) => total + (task?.points || 0), 0)}
+            <h2 className=" capitalize ">{column.title}</h2>
+            {column.tasks.reduce((total, task) => total + (task?.points || 0), 0)}
           </div>
-          {column.tasks.map((task) => (
-            <TaskCard
-              task={task}
-              updateTask={updateTask}
-            />))}
+          <div className={`w-full ${currentlyHoveringOver === column.title ? 'bg-gray-200' : 'bg-transparent'}`}>
+            {column.tasks.map((task) => (
+              <TaskCard
+                task={task}
+                updateTask={updateTask}
+              />
+            ))}
+          </div>
         </div>
-      ))} 
+      ))}
     </div>
   )
 }

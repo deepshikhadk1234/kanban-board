@@ -1,12 +1,12 @@
 //import { useState } from 'react'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './App.css'
 import TaskCard from './components/TaskCard.tsx'
-import { tasks as initialTasks, Status, statuses, Task } from './utils/data-task'
+import {Status, statuses, Task } from './utils/data-task'
 
 function App() {
-  const [tasks, setTasks] = useState<Task[]>(initialTasks)
+  const [tasks, setTasks] = useState<Task[]>([])
   const columns = statuses.map((status) => {
     const taskInColumn = tasks.filter((task) => task.status === status)
     return {
@@ -15,15 +15,22 @@ function App() {
     }
   })
 
-  // const updateTaskPoints = (task: Task, points: number) => {
-  //   updateTask({...task, points})
-  // }
+  useEffect(() => {
+    fetch('http://localhost:3000/tasks')
+      .then(response => response.json())
+      .then(data => setTasks(data))
+  }, [])
+    
 
-  // const updateTaskTitle = (task: Task, title: string) => { 
-  //   updateTask({...task, title})
-  // }
 
-  const updateTask = (task: Task) => { // Change String to string
+  const updateTask = (task: Task) => { 
+    fetch(`http://localhost:3000/tasks/${task.id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(task)
+    })
 
     const updatedTasks = tasks.map((t) => {
       return t.id === task.id ? task : t
